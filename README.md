@@ -1,5 +1,7 @@
 # Rails Active Record Optimistic Locking With Hashes
 
+[![Build Status](https://travis-ci.org/ndbabb/rails-optimistic-locking-with-hashes.svg?branch=master)](https://travis-ci.org/ndbabb/rails-optimistic-locking-with-hashes)
+
 This repo provides an example of a Rails 5 app (API-only) that implements optimistic locking using a cryptographic hash of field data.
 
 ## Background

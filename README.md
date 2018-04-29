@@ -16,7 +16,7 @@ Read more in the [Rails API docs][1].
 
 In this example, we're taking an alternative approach using cryptographic hashes instead Rail's `lock_version` counter. Each version of a record's data is computed as a [SHA256][4] hash (fingerprint). When a user or process submits changes to a record, a check is made against the latest data in the database.
 
-The behavior is added to a Active Record class using a [concern][5] called [Lockable][2].
+The behavior is added to an Active Record class using a [concern][5] called [Lockable][2].
 
 To implement on an Active Record class, we include our custom [Lockable][2] module:
 
@@ -71,7 +71,7 @@ During the `PUT /people/1` request to update the record, the same `lock_fingerpr
 
 ## Advantages / Disadvantages
 
-Some advantages of this approach over rail's lock_version technique: 1) other processes (e.g. outside of rails) can directly manipulate data and it works as expected, and 2) no additional DB field needed for `lock_version`, 3) we deal with actual data to determine conflicts that result in a StaleObject error, as opposed to `lock_version` which is a proxy/approximation. E.g. with the hash approach, two users who make identical edits will not lead to a StaleObject error.
+Some advantages of this approach over Rail's lock_version technique: 1) other processes (e.g. outside of Rails) can directly manipulate data and it works as expected, and 2) no additional DB field needed for `lock_version`, 3) we deal with actual data to determine conflicts that result in a StaleObject error, as opposed to `lock_version` which is a proxy/approximation. E.g. with the hash approach, two users who make identical edits will not lead to a StaleObject error.
 
 Some disadvantages: 1) Overhead in computing the hash and additional queries on the DB, 2) the need to maintain list of field exclusions, 3) diverting from the standard Rails approach.
 

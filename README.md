@@ -53,7 +53,7 @@ end
 
 See the [Person][3] class for a working example.
 
-## Using in an JSON API
+## Using in a JSON API
 
 For a typical frontend consuming the API, the `lock_fingerprint` attribute is passed along with a record, and then passed back during an update (PUT request). E.g. `GET /people/1` looks like:
 

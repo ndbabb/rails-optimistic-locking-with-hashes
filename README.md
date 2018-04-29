@@ -77,7 +77,7 @@ Some advantages of this approach over Rail's lock_version technique: 1) other pr
 
 Some disadvantages: 1) Overhead in computing the hash and additional queries on the DB, 2) the need to maintain list of field exclusions, 3) diverting from the standard Rails approach.
 
-I would recommend going with the Rails `lock_fingerprint` approach unless one of these advantages jump out at you for your particular use-case. 
+I would recommend going with the Rails `lock_version` approach unless one of these advantages jump out at you for your particular use-case. 
 
 ## Future Possibilities
 

@@ -6,7 +6,7 @@ This repo provides an example of a Rails 5 app (API-only) that implements optimi
 
 ## Background
 
-Optimistic locking deals with a scenario where multiple users are editing a record at the same time. When submitting changes to the database, there's a possibility another user or process will make changes to the record in the meantime, which could lead to some undesirable overwriting of data. 😓
+When multiple users have access to edit records in a database, a scenario can arise where two users are working on the same record at the same time and accidentally overwrite each other's data. *Optimistic* and *pessimistic* locking help to deal with this problem. *Optimistic* refers to a solution where users can concurrently access the document for editing and the a check is performed when committing the update to the database. Whereas with *pessimistic* locking, the record is locked from the moment the user starts working on it until changes are committed. 
 
 Rails provides a way to implement optimistic locking with Active Record by adding a `lock_version` field:
 

@@ -1,5 +1,5 @@
 class Person < ApplicationRecord
-  include Lockable
+  include StaleObjectProtection
   has_many :items
   validates :first_name, :last_name, presence: true
 

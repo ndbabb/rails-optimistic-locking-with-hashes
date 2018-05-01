@@ -1,4 +1,4 @@
-module Lockable
+module StaleObjectProtection
   extend ActiveSupport::Concern
 
   included do

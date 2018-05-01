@@ -18,13 +18,13 @@ Read more in the [Rails API docs][1].
 
 In this example, we're taking an alternative approach using cryptographic hashes instead Rail's `lock_version` counter. Each version of a record's data is computed as a [SHA256][4] hash (fingerprint). When a user or process submits changes to a record, a check is made against the latest data in the database.
 
-The behavior is added to an Active Record class using a [concern][5] called [Lockable][2].
+The behavior is added to an Active Record class using a [concern][5] called [StaleObjectProtection][2].
 
-To implement on an Active Record class, we include our custom [Lockable][2] module:
+To implement on an Active Record class, we include our custom [StaleObjectProtection][2] module:
 
 ```ruby
 class Person < ApplicationRecord
-  include Lockable
+  include StaleObjectProtection
   
   # [...]
 end
@@ -69,7 +69,7 @@ For a typical frontend consuming the API, the `lock_fingerprint` attribute is pa
 }
 ```
 
-During the `PUT /people/1` request to update the record, the same `lock_fingerprint` field and value is passed back and the Lockable module checks it against the latest data in the DB. In this API example, a failed check results in the API responding with `422 Unprocessable Entity` HTTP response code. See the [PeopleController][6] class and [ApiExceptionHandler][7] module, and a test to demonstrate it in [People Request Spec][8].
+During the `PUT /people/1` request to update the record, the same `lock_fingerprint` field and value is passed back and the StaleObjectProtection module checks it against the latest data in the DB. In this API example, a failed check results in the API responding with `422 Unprocessable Entity` HTTP response code. See the [PeopleController][6] class and [ApiExceptionHandler][7] module, and a test to demonstrate it in [People Request Spec][8].
 
 ## Advantages / Disadvantages
 
@@ -88,7 +88,7 @@ I would recommend going with the Rails `lock_version` approach unless one of the
 3. Store `lock_fingerprint` attribute as a field in the DB. Some performance advantages here, RE: less (re)computing of the hash, less data transmitted when checking current DB record.
 
 [1]: http://api.rubyonrails.org/classes/ActiveRecord/Locking/Optimistic.html
-[2]: app/models/concerns/lockable.rb
+[2]: app/models/concerns/stale_object_protection.rb
 [3]: app/models/person.rb
 [4]: https://en.wikipedia.org/wiki/SHA-2
 [5]: http://api.rubyonrails.org/v5.1/classes/ActiveSupport/Concern.html
